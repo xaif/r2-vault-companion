@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Download, Github, ArrowRight } from "lucide-react";
+import { Download, Github } from "lucide-react";
+import screenshot from "@/assets/screenshot.png";
 
 const Hero = () => {
   return (
@@ -65,79 +66,42 @@ const Hero = () => {
           >
             <Button
               size="lg"
-              className="group h-13 px-8 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl glow-orange"
+              className="h-12 px-7 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
               asChild
             >
               <a href="https://github.com/xaif/r2Vault/releases/latest" target="_blank" rel="noopener noreferrer">
-                <Download className="w-5 h-5" />
+                <Download className="w-5 h-5 mr-2" />
                 Download for macOS
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="h-13 px-8 text-base font-medium border-border/50 hover:border-primary/30 hover:bg-primary/5 rounded-xl"
+              className="h-12 px-7 text-base font-medium border-border/50 hover:border-primary/30 hover:bg-primary/5 rounded-xl"
               asChild
             >
               <a href="https://github.com/xaif/r2Vault" target="_blank" rel="noopener noreferrer">
-                <Github className="w-5 h-5" />
+                <Github className="w-5 h-5 mr-2" />
                 View on GitHub
               </a>
             </Button>
           </motion.div>
 
-          {/* Hero mockup */}
+          {/* Real app screenshot */}
           <motion.div
             className="mt-20 relative"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <div className="relative mx-auto max-w-3xl">
-              {/* macOS window frame */}
-              <div className="rounded-xl overflow-hidden border border-border/50 bg-card shadow-2xl">
-                {/* Title bar */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-secondary/50 border-b border-border/50">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-500/70" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/70" />
-                  </div>
-                  <span className="flex-1 text-center text-xs text-muted-foreground font-mono">r2Vault</span>
-                </div>
-                {/* App content mockup */}
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                        <div className="w-4 h-4 rounded bg-primary/60" />
-                      </div>
-                      <div>
-                        <div className="h-3 w-32 bg-foreground/15 rounded" />
-                        <div className="h-2 w-20 bg-foreground/8 rounded mt-1.5" />
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <div className="h-7 w-16 rounded-md bg-primary/15 border border-primary/20" />
-                      <div className="h-7 w-7 rounded-md bg-secondary" />
-                    </div>
-                  </div>
-                  {/* File list mockup */}
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-secondary/30 border border-border/30"
-                    >
-                      <div className="w-8 h-8 rounded bg-primary/10 flex-shrink-0" />
-                      <div className="flex-1 space-y-1.5">
-                        <div className="h-2.5 rounded bg-foreground/12" style={{ width: `${50 + i * 12}%` }} />
-                        <div className="h-2 rounded bg-foreground/6" style={{ width: `${30 + i * 8}%` }} />
-                      </div>
-                      <div className="h-2 w-12 rounded bg-muted-foreground/20" />
-                    </div>
-                  ))}
-                </div>
+            <div className="relative mx-auto max-w-4xl">
+              <div className="rounded-xl overflow-hidden border border-border/50 shadow-2xl">
+                <img
+                  src={screenshot}
+                  alt="r2Vault — Browse your R2 bucket with a beautiful native macOS interface"
+                  className="w-full h-auto"
+                  loading="eager"
+                />
               </div>
               {/* Glow effect behind */}
               <div className="absolute -inset-4 -z-10 bg-primary/10 blur-3xl rounded-3xl" />
