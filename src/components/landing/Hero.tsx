@@ -89,6 +89,21 @@ const Hero = () => {
             </Button>
           </motion.div>
 
+          {/* Quarantine note */}
+          <motion.div
+            className="mt-4 max-w-lg mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <p className="text-xs text-muted-foreground/70 leading-relaxed">
+              Not notarized by Apple. If macOS shows a warning, run:
+            </p>
+            <code className="inline-block mt-1.5 px-3 py-1.5 rounded-md bg-secondary/50 border border-border/50 text-xs font-mono text-muted-foreground select-all">
+              xattr -dr com.apple.quarantine /Applications/R2Vault.app
+            </code>
+          </motion.div>
+
           {/* Real app screenshot */}
           <motion.div
             className="mt-20 relative"
