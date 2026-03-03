@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Download } from "lucide-react";
+import { useLatestRelease } from "@/hooks/use-latest-release";
 
 const Navbar = () => {
+  const { downloadUrl } = useLatestRelease();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ const Navbar = () => {
             </a>
           </Button>
           <Button size="sm" className="rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-medium" asChild>
-            <a href="https://github.com/xaif/r2Vault/releases/latest" target="_blank" rel="noopener noreferrer">
+            <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
               <Download className="w-3.5 h-3.5" />
               Download
             </a>
