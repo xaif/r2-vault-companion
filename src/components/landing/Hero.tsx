@@ -2,8 +2,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Download, Github } from "lucide-react";
 import screenshot from "@/assets/screenshot.png";
+import { useLatestRelease } from "@/hooks/use-latest-release";
 
 const Hero = () => {
+  const { version, downloadUrl } = useLatestRelease();
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden">
       {/* Floating orbs */}
@@ -31,7 +33,7 @@ const Hero = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium border border-primary/20 bg-primary/5 text-primary mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              v1.2.1 — Now Available
+              {version} — Now Available
             </span>
           </motion.div>
 
@@ -69,7 +71,7 @@ const Hero = () => {
               className="h-12 px-7 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
               asChild
             >
-              <a href="https://github.com/xaif/r2Vault/releases/latest" target="_blank" rel="noopener noreferrer">
+              <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
                 <Download className="w-5 h-5 mr-2" />
                 Download for macOS
               </a>

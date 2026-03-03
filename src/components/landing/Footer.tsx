@@ -1,6 +1,8 @@
 import { Github } from "lucide-react";
+import { useLatestRelease } from "@/hooks/use-latest-release";
 
 const Footer = () => {
+  const { version } = useLatestRelease();
   return (
     <footer className="border-t border-border/30 py-10">
       <div className="container px-6">
@@ -8,7 +10,7 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <span className="font-mono font-bold text-lg text-gradient">r2Vault</span>
             <span className="text-xs font-mono text-muted-foreground px-2 py-0.5 rounded border border-border/50 bg-secondary/30">
-              v1.2.1
+              {version}
             </span>
           </div>
 
