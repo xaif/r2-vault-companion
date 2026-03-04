@@ -71,7 +71,7 @@ const Hero = () => {
               className="h-12 px-7 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
               asChild
             >
-              <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+              <a href={downloadUrl} download>
                 <Download className="w-5 h-5 mr-2" />
                 Download for macOS
               </a>
