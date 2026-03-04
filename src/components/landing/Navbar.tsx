@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#getting-started" className="hover:text-foreground transition-colors">Get Started</a>
-          <a href="https://xaif-r2vault-44.mintlify.dev" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Docs</a>
+          <a href="https://docs.r2vault.app/introduction" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Docs</a>
         </div>
 
         <div className="flex items-center gap-2">
