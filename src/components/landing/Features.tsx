@@ -6,18 +6,26 @@ import {
   History,
   HardDrive,
   PanelTop,
+  Eye,
+  RefreshCw,
+  Trash2,
 } from "lucide-react";
 
 const features = [
   {
     icon: Upload,
     title: "Drag & Drop Uploads",
-    description: "Drop files directly into the app with real-time progress tracking and queue management.",
+    description: "Drop files and folders directly from Finder with real-time progress, cancel controls, and auto-copied public URLs.",
   },
   {
     icon: FolderOpen,
     title: "File Browser",
-    description: "Browse your buckets in grid or list views with image thumbnails and instant preview.",
+    description: "Finder-style navigation with icon and list views, breadcrumbs, search, sort, and filter by name, size, or date.",
+  },
+  {
+    icon: Eye,
+    title: "Quick Look Preview",
+    description: "Press spacebar to preview any file instantly — just like Finder. No need to download first.",
   },
   {
     icon: Link2,
@@ -25,19 +33,29 @@ const features = [
     description: "Generate secure, time-limited sharing links for any file with a single click.",
   },
   {
-    icon: History,
-    title: "Upload History",
-    description: "Full upload history and queue management. Track every file you've ever uploaded.",
+    icon: Trash2,
+    title: "Batch Operations",
+    description: "Delete files, folders, or entire directory trees in one action. Batch delete multiple items with a single confirmation.",
   },
   {
     icon: HardDrive,
     title: "Multiple Buckets",
-    description: "Switch between multiple R2 buckets effortlessly. Manage all your storage in one place.",
+    description: "Switch between multiple R2 buckets effortlessly from the gear menu. Manage all your storage in one place.",
   },
   {
     icon: PanelTop,
     title: "Menu Bar Access",
-    description: "Quick access from your macOS menu bar. Upload and manage files without leaving your workflow.",
+    description: "Always one click away in your macOS menu bar. Drop files onto the popover to upload instantly.",
+  },
+  {
+    icon: History,
+    title: "Upload History",
+    description: "Full upload history per bucket with copy link, download, and delete actions. Track everything you've uploaded.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Auto-Update",
+    description: "Check for updates from the app menu. New releases download and install automatically — no manual DMG hunting.",
   },
 ];
 
@@ -49,7 +67,7 @@ const Features = () => {
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           <span className="text-primary font-mono text-sm font-medium tracking-wide uppercase">Features</span>
