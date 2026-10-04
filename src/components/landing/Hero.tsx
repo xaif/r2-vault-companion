@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ChevronRight, HardDrive } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import DesktopStage, { MENU_BAR_HEIGHT, MenuBarStrip } from "./DesktopStage";
 import CopyCommand from "./CopyCommand";
 import { useLatestRelease } from "@/hooks/use-latest-release";
+import finderIcon from "@/assets/icons/finder.webp";
 import heroWallpaper from "@/assets/stages/hero.webp";
 import browserUploading from "@/assets/screens/mac-browser-uploading.webp";
 import menuBarUploading from "@/assets/screens/mac-menubar-uploading.webp";
@@ -14,14 +15,16 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const ICON_AT = 28;
 const POPOVER_WIDTH = 22;
 
-/** The green drive tile the app uses for "Your bucket in Finder", sized to sit inside a headline. */
-const DriveTile = () => (
-  <span
+/** The macOS Finder app icon, tilted like a sticker and sized to sit inside a headline. */
+const FinderIcon = () => (
+  <img
+    src={finderIcon}
+    alt=""
     aria-hidden="true"
-    className="mx-[0.06em] inline-flex h-[0.86em] w-[0.86em] -translate-y-[0.06em] items-center justify-center rounded-[24%] bg-gradient-to-b from-[#8be38f] to-[#2fb14b] align-middle shadow-[inset_0_1px_0_rgb(255_255_255/0.45),0_0.06em_0.18em_rgb(0_0_0/0.35)]"
-  >
-    <HardDrive className="h-[0.5em] w-[0.5em] text-white" strokeWidth={2.4} />
-  </span>
+    width={256}
+    height={256}
+    className="mx-[0.1em] inline-block h-[0.86em] w-[0.86em] -translate-y-[0.06em] rotate-[9deg] align-middle drop-shadow-[0_0.06em_0.18em_rgb(0_0_0/0.35)]"
+  />
 );
 
 const Hero = () => {
@@ -60,7 +63,7 @@ const Hero = () => {
           <span className="whitespace-nowrap rounded-[0.4em] bg-[#ffd6c2] px-[0.24em] text-ember shadow-[inset_0_-0.04em_0_rgb(196_82_31/0.15)]">
             R2 bucket
           </span>{" "}
-          right in <DriveTile />{" "}
+          right in <FinderIcon />{" "}
           Finder
         </h1>
 
