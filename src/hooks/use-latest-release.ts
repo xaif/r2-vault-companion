@@ -13,7 +13,7 @@ interface ReleaseInfo {
 }
 
 const FALLBACK: ReleaseInfo = {
-  version: "v1.2.5",
+  version: "v2.0.0",
   downloadUrl: "https://github.com/xaif/r2Vault/releases/latest",
   releaseUrl: "https://github.com/xaif/r2Vault/releases/latest",
 };
