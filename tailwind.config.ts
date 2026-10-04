@@ -7,13 +7,41 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.5rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1280px",
       },
     },
     extend: {
+      fontFamily: {
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"SF Pro Text"',
+          '"SF Pro Display"',
+          "Inter",
+          '"Helvetica Neue"',
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
+        mono: ["ui-monospace", '"SF Mono"', "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+      },
       colors: {
+        // Apple-style neutrals
+        ink: "#1d1d1f",
+        "ink-2": "#6e6e73",
+        mist: "#f5f5f7",
+        night: "#000000",
+        graphite: "#161617",
+        "night-2": "#86868b",
+        // r2Vault's accent, sampled from the app. Each shade is picked for contrast where it's used.
+        ember: {
+          DEFAULT: "#c4521f", // button fill, white label 4.6:1
+          deep: "#b84a1a", // text on white/mist
+          bright: "#e77245", // the app's own accent, decorative only
+          light: "#f69168", // text on black
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -47,21 +75,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        tile: "28px",
+      },
+      maxWidth: {
+        page: "1280px",
+        copy: "46rem",
       },
       keyframes: {
         "accordion-down": {
@@ -72,20 +95,10 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "float": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "0.8" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 6s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
       },
     },
   },

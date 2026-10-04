@@ -1,130 +1,127 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Download, Github } from "lucide-react";
-import screenshot from "@/assets/screenshot.png";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ChevronRight, HardDrive } from "lucide-react";
+import DesktopStage, { MENU_BAR_HEIGHT, MenuBarStrip } from "./DesktopStage";
+import CopyCommand from "./CopyCommand";
 import { useLatestRelease } from "@/hooks/use-latest-release";
+import heroWallpaper from "@/assets/stages/hero.webp";
+import browserUploading from "@/assets/screens/mac-browser-uploading.webp";
+import menuBarUploading from "@/assets/screens/mac-menubar-uploading.webp";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+// Like any third-party menu bar extra, r2Vault's icon sits left of the system icons,
+// and its popover hangs centered beneath it.
+const ICON_AT = 28;
+const POPOVER_WIDTH = 22;
+
+/** The green drive tile the app uses for "Your bucket in Finder", sized to sit inside a headline. */
+const DriveTile = () => (
+  <span
+    aria-hidden="true"
+    className="mx-[0.06em] inline-flex h-[0.86em] w-[0.86em] -translate-y-[0.06em] items-center justify-center rounded-[24%] bg-gradient-to-b from-[#8be38f] to-[#2fb14b] align-middle shadow-[inset_0_1px_0_rgb(255_255_255/0.45),0_0.06em_0.18em_rgb(0_0_0/0.35)]"
+  >
+    <HardDrive className="h-[0.5em] w-[0.5em] text-white" strokeWidth={2.4} />
+  </span>
+);
 
 const Hero = () => {
-  const { version, downloadUrl } = useLatestRelease();
+  const { downloadUrl, version } = useLatestRelease();
+  const reduceMotion = useReducedMotion();
+  const [popoverOpen, setPopoverOpen] = useState(!!reduceMotion);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setPopoverOpen(true);
+      return;
+    }
+    const t = window.setTimeout(() => setPopoverOpen(true), 1100);
+    return () => window.clearTimeout(t);
+  }, [reduceMotion]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden">
-      {/* Floating orbs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-3xl animate-pulse-glow [animation-delay:1.5s]" />
+    <section data-nav-tone="dark" id="top" aria-labelledby="hero-title" className="overflow-hidden bg-night pt-32 text-white md:pt-40">
+      <div className="mx-auto max-w-page px-6 text-center">
+        <a
+          href="#finder-drive"
+          className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.06] py-1 pl-1 pr-3 text-[14px] text-white/85 transition-colors hover:bg-white/10"
+        >
+          <span className="rounded-full bg-ember-bright/25 px-2.5 py-0.5 text-[12px] font-semibold text-ember-light">
+            {version.replace(/^v/, "").replace(/\.0$/, "")}
+          </span>
+          Mount any bucket in Finder
+          <ChevronRight className="h-3.5 w-3.5 text-white/60" aria-hidden="true" />
+        </a>
+
+        <h1
+          id="hero-title"
+          className="mx-auto mt-7 max-w-[13ch] text-[clamp(2.75rem,7.6vw,6.75rem)] font-bold leading-[1.04] tracking-[-0.04em] [text-wrap:balance]"
+        >
+          Your{" "}
+          <span className="whitespace-nowrap rounded-[0.4em] bg-[#ffd6c2] px-[0.24em] text-ember shadow-[inset_0_-0.04em_0_rgb(196_82_31/0.15)]">
+            R2 bucket
+          </span>{" "}
+          right in <DriveTile />{" "}
+          Finder
+        </h1>
+
+        <p className="mx-auto mt-7 max-w-[34rem] text-[clamp(1.0625rem,1.5vw,1.3125rem)] leading-[1.45] tracking-[-0.012em] text-night-2">
+          r2Vault is the free, open-source Mac app for Cloudflare R2. Open any file without downloading the bucket, drop
+          files on the menu bar to upload, and share a link in one click.
+        </p>
+
+        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href={downloadUrl} className="pill-ember h-12 px-7 text-[17px]">
+            Download for Mac
+          </a>
+          <a href="#finder-drive" className="pill h-12 bg-white/10 pl-7 pr-5 text-[17px] text-white hover:bg-white/15">
+            See how it works
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+
+        <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-2">
+          <p className="text-[13px] text-night-2">Or install with Homebrew. Requires macOS 26.2 or later.</p>
+          <CopyCommand
+            command="brew install --cask xaif/tap/r2vault"
+            label="Copy Homebrew install command"
+            tone="dark"
+            className="w-full sm:w-auto"
+          />
+        </div>
       </div>
 
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+      <div className="mx-auto mt-16 max-w-[1360px] px-3 md:mt-20">
+        <DesktopStage wallpaper={heroWallpaper} className="aspect-[16/10] rounded-t-[20px] md:aspect-[16/7.6] md:rounded-t-[28px]">
+          <MenuBarStrip iconAt={ICON_AT} iconActive={popoverOpen} />
 
-      <div className="container relative z-10 px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          <motion.img
+            src={browserUploading}
+            alt="r2Vault's file browser showing a folder of images as thumbnails, with four uploads in progress in the corner."
+            width={2000}
+            height={1254}
+            loading="eager"
+            className="window-shadow absolute left-[4cqw] top-[10cqw] w-[92cqw] md:left-[5cqw] md:top-[12cqw] md:w-[64cqw]"
+            initial={reduceMotion ? false : { opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium border border-primary/20 bg-primary/5 text-primary mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              {version} — Now Available
-            </span>
-          </motion.div>
+            transition={{ duration: 1, delay: 0.15, ease }}
+          />
 
-          {/* Headline */}
-          <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[0.95] mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Your R2 Bucket,{" "}
-            <span className="text-gradient">Beautifully Managed</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            A native macOS app for managing Cloudflare R2 storage.
-            Drag & drop uploads, file browsing, presigned URLs — all from your menu bar.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Button
-              size="lg"
-              className="h-12 px-7 text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
-              asChild
-            >
-              <a href={downloadUrl} download>
-                <Download className="w-5 h-5 mr-2" />
-                Download for macOS
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-12 px-7 text-base font-medium border-border/50 hover:border-primary/30 hover:bg-primary/5 rounded-xl"
-              asChild
-            >
-              <a href="https://github.com/xaif/r2Vault" target="_blank" rel="noopener noreferrer">
-                <Github className="w-5 h-5 mr-2" />
-                View on GitHub
-              </a>
-            </Button>
-          </motion.div>
-
-          {/* Install hint */}
-          <motion.div
-            className="mt-4 max-w-lg mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <p className="text-xs text-muted-foreground/70 leading-relaxed mb-1.5">
-              Also available via Homebrew or a one-line installer:
-            </p>
-            <code className="inline-block px-3 py-1.5 rounded-md bg-secondary/50 border border-border/50 text-xs font-mono text-muted-foreground select-all">
-              brew install --cask --no-quarantine xaif/tap/r2vault
-            </code>
-          </motion.div>
-
-          {/* Real app screenshot */}
-          <motion.div
-            className="mt-20 relative"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <div className="relative mx-auto max-w-4xl">
-              <div className="rounded-xl overflow-hidden border border-border/50 shadow-2xl">
-                <img
-                  src={screenshot}
-                  alt="r2Vault — Browse your R2 bucket with a beautiful native macOS interface"
-                  className="w-full h-auto"
-                  loading="eager"
-                />
-              </div>
-              {/* Glow effect behind */}
-              <div className="absolute -inset-4 -z-10 bg-primary/10 blur-3xl rounded-3xl" />
-            </div>
-          </motion.div>
-        </div>
+          <motion.img
+            src={menuBarUploading}
+            alt="The r2Vault menu bar popover: a drop zone, a video uploading at 49 percent, recent uploads, and a Link copied confirmation."
+            width={692}
+            height={932}
+            className="window-shadow absolute hidden origin-top md:block"
+            style={{
+              right: `${ICON_AT - POPOVER_WIDTH / 2}cqw`,
+              width: `${POPOVER_WIDTH}cqw`,
+              top: `calc(${MENU_BAR_HEIGHT} - 0.2cqw)`,
+            }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.94, y: -6 }}
+            animate={popoverOpen ? { opacity: 1, scale: 1, y: 0 } : undefined}
+            transition={{ duration: 0.45, ease }}
+          />
+        </DesktopStage>
       </div>
     </section>
   );

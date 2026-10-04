@@ -1,52 +1,41 @@
+/* Inter is only a fallback for systems without San Francisco; Apple devices never download it. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @layer base {
   :root {
-    --background: 220 25% 6%;
-    --foreground: 210 20% 92%;
+    --background: 0 0% 100%;
+    --foreground: 240 3% 12%;
 
-    --card: 220 20% 10%;
-    --card-foreground: 210 20% 92%;
+    --card: 240 11% 96%;
+    --card-foreground: 240 3% 12%;
 
-    --popover: 220 20% 10%;
-    --popover-foreground: 210 20% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 3% 12%;
 
-    --primary: 24 92% 54%;
+    --primary: 18 73% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 14%;
-    --secondary-foreground: 210 20% 85%;
+    --secondary: 240 11% 96%;
+    --secondary-foreground: 240 3% 12%;
 
-    --muted: 220 15% 16%;
-    --muted-foreground: 215 15% 55%;
+    --muted: 240 11% 96%;
+    --muted-foreground: 240 2% 44%;
 
-    --accent: 24 92% 54%;
+    --accent: 18 73% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 24 92% 54%;
+    --border: 240 6% 88%;
+    --input: 240 6% 88%;
+    --ring: 16 77% 59%;
 
     --radius: 0.75rem;
-
-    --glow-orange: 24 92% 54%;
-    --glow-amber: 36 100% 50%;
-
-    --sidebar-background: 220 25% 8%;
-    --sidebar-foreground: 210 20% 92%;
-    --sidebar-primary: 24 92% 54%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 20% 14%;
-    --sidebar-accent-foreground: 210 20% 92%;
-    --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 24 92% 54%;
   }
 }
 
@@ -55,46 +44,123 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: hsl(24 92% 54% / 0.3);
+    background: rgb(231 114 69 / 0.25);
+  }
+
+  :focus-visible {
+    outline: 2px solid #e77245;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--glow-amber)));
+@layer components {
+  /* Type scale, after Apple's product pages: display sizes tighten, text sizes open up. */
+  .type-hero,
+  .type-headline,
+  .type-title,
+  .type-tile,
+  .type-lead {
+    text-wrap: balance;
+  }
+  .type-hero {
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .type-headline {
+    font-size: clamp(2.5rem, 5.6vw, 4.5rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .type-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  .type-tile {
+    font-size: clamp(1.5rem, 2.2vw, 1.75rem);
+    line-height: 1.14;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .type-lead {
+    font-size: clamp(1.1875rem, 1.7vw, 1.5rem);
+    line-height: 1.38;
+    font-weight: 600;
+    letter-spacing: -0.018em;
+  }
+  .type-kicker {
+    font-size: clamp(1.0625rem, 1.4vw, 1.3125rem);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.015em;
   }
 
-  .bg-gradient-hero {
-    background: radial-gradient(ellipse 80% 60% at 50% -20%, hsl(24 92% 54% / 0.15), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 50%, hsl(24 92% 54% / 0.08), transparent),
-                hsl(var(--background));
+  .section {
+    @apply py-24 md:py-36;
   }
 
-  .glow-orange {
-    box-shadow: 0 0 40px -10px hsl(24 92% 54% / 0.4),
-                0 0 80px -20px hsl(24 92% 54% / 0.2);
+  .pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors;
+    letter-spacing: -0.01em;
+  }
+  .pill-ember {
+    @apply pill bg-ember text-white hover:bg-ember-deep;
   }
 
-  .glow-border {
-    border: 1px solid hsl(24 92% 54% / 0.2);
+  /* A wallpaper "desktop" that Mac screenshots sit on. */
+  .stage {
+    @apply relative overflow-hidden bg-cover bg-center;
+    container-type: inline-size;
   }
 
-  .glass-card {
-    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+  /* The menu bar strip trims itself to the stage's width, like a real one on a small display. */
+  .menubar-menu,
+  .menubar-date,
+  .menubar-extra {
+    display: none;
+  }
+  @container (min-width: 720px) {
+    .menubar-extra {
+      display: inline;
+    }
+  }
+  @container (min-width: 560px) {
+    .menubar-menu {
+      display: inline;
+    }
+  }
+  @container (min-width: 1000px) {
+    .menubar-date {
+      display: inline;
+    }
   }
 
-  .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+  .window-shadow {
+    filter: drop-shadow(0 2.4cqw 4cqw rgb(0 0 0 / 0.45)) drop-shadow(0 0 1px rgb(0 0 0 / 0.5));
   }
 }
