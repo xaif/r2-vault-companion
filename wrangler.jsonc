@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "r2vault",
+  "compatibility_date": "2026-10-01",
+  "routes": [
+    { "pattern": "r2vault.app", "custom_domain": true },
+    { "pattern": "www.r2vault.app", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
